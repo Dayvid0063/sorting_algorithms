@@ -5,6 +5,7 @@
  * @array: The array to be sorted
  * @size: Number of elements in the array
  */
+void counting_sort(int *array, size_t size);
 void counting_sort(int *array, size_t size)
 {
 	int max, *count, u, *output;
