@@ -18,17 +18,6 @@ typedef struct listint_s
 	struct listint_s *next;
 } listint_t;
 
-/**
- * enum bool - An enumeration of Bboolean values(True/False).
- * @true: equivalent to 1.
- * @false: equivalent to 0.
- */
-typedef enum bool
-{
-	true,
-	false = 0
-} bool;
-
 void print_list(const listint_t *list);
 void print_array(const int *array, int size);
 void bubble_sort(int *array, int size);
