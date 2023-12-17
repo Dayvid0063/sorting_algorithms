@@ -26,11 +26,7 @@ void shell_sort(int *array, size_t size)
 			}
 			array[j] = temp;
 		}
-		for (i = 0; i < size; i++)
-		{
-			printf("%d, ", array[i]);
-		}
-		printf("\n");
+		print_array(array, (int)size);
 		gap = (gap - 1) / 3;
 	}
 }
