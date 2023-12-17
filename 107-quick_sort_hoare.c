@@ -34,12 +34,10 @@ int hoare_split(int *array, size_t size, int left, int right)
 	rotate = array[right];
 	for (top = left - 1, bottom = right + 1; top < bottom;)
 	{
-		do
-		{
+		do {
 			top++;
 		} while (array[top] < rotate);
-		do
-		{
+		do {
 			bottom--;
 		} while (array[bottom] > rotate);
 
