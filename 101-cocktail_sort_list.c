@@ -21,6 +21,7 @@ void swap_nodes(listint_t *a, listint_t *b)
  *@head: head
  *@tail: tail
  *@list: initial head of the list
+ *Return: list head
  */
 listint_t *tail_reversal(listint_t *head, listint_t *tail, listint_t *list)
 {
