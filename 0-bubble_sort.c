@@ -21,25 +21,25 @@ void _swap(int *a, int *b)
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t u, v;
-	int exchange;
+	size_t u, v, pri_v;
+
+	v = size;
 
 	if (array == NULL || size < 2)
 		return;
 
-	for (v = size; v > 0; v--)
+	while (v > 0)
 	{
-		exchange = 0;
+		pri_v = 0;
 		for (u = 0; u < v - 1; u++)
 		{
 			if (array[u] > array[u + 1])
 			{
 				_swap(&array[u], &array[u + 1]);
-				exchange = 1;
+				pri_v = u + 1;
+				print_array(array, size);
 			}
 		}
-		if (exchange == 0)
-			break;
-		print_array(array, size);
+		v = pri_v;
 	}
 }
