@@ -1,7 +1,7 @@
-#include <stdio.h>
+#include "sort.h"
 
 /**
- * _swap - func swaps two numbers
+ * _swap - function swaps two numbers
  * @a: first number
  * @b: second number
  */
@@ -24,7 +24,6 @@ int lomuto_partition(int *array, size_t size, int left, int right)
 {
 	int *pivot = array + right;
 	int u, v = left - 1;
-	size_t w;
 
 	for (u = left; u <= right - 1; u++)
 	{
@@ -34,37 +33,21 @@ int lomuto_partition(int *array, size_t size, int left, int right)
 			if (v != u)
 			{
 				_swap(&array[v], &array[u]);
-				for (w = 0; w < size; w++)
-				{
-					printf("%d", array[w]);
-					if (w != size - 1)
-					{
-						printf(", ");
-					}
-				}
-				printf("\n");
+				print_array(array, size);
 			}
 		}
 	}
 	if ((v + 1) != right)
 	{
 		_swap(&array[v + 1], &array[right]);
-		for (w = 0; w < size; w++)
-		{
-			printf("%d", array[w]);
-			if (w != size - 1)
-			{
-				printf(", ");
-			}
-		}
-		printf("\n");
+		print_array(array, size);
 	}
 
 	return (v + 1);
 }
 
 /**
- * _sort - Func recursively sorts the array
+ * _sort - Function recursively sorts the array
  * @array: Array of int
  * @size: Size
  * @left: Starting index
@@ -90,8 +73,7 @@ void _sort(int *array, size_t size, int left, int right)
 void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
-	{
 		return;
-	}
+
 	_sort(array, size, 0, size - 1);
 }
