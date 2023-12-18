@@ -1,19 +1,22 @@
+#include <stdio.h>
 #include "sort.h"
 
 /**
- * insertion_sort_list - Func runs insertion sort algorithm
+ * insertion_sort_list - Func runs insertion sort algorithm in ascending order
  * @list: Head of the doubly linked list
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *main = (*list)->next;
-	listint_t *rev = main->prev;
+	listint_t *rev, *main;
 
 	if (!list || !*list || !(*list)->next)
 		return;
 
+	main = (*list)->next;
+
 	while (main)
 	{
+		rev = main->prev;
 
 		while (rev && rev->n > main->n)
 		{
