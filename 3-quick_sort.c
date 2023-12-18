@@ -22,13 +22,13 @@ void _swap(int *a, int *b)
  */
 int lomuto_partition(int *array, size_t size, int left, int right)
 {
-	int pivot = array[right];
+	int *pivot = array + right;
 	int u, v = left - 1;
 	size_t w;
 
 	for (u = left; u <= right - 1; u++)
 	{
-		if (array[u] < pivot)
+		if (array[u] < *pivot)
 		{
 			v++;
 			if (v != u)
