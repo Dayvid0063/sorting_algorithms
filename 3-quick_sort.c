@@ -1,5 +1,10 @@
 #include "sort.h"
 
+void _swap(int *a, int *b);
+int lomuto_partition(int *array, size_t size, int left, int right);
+void _sort(int *array, size_t size, int left, int right);
+void quick_sort(int *array, size_t size);
+
 /**
  * _swap - function swaps two numbers
  * @a: first number
