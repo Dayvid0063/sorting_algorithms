@@ -2,51 +2,39 @@
 
 /**
  * insertion_sort_list - Func runs insertion sort algorithm
- * @list: Head of the linked list
+ * @list: Head of the doubly linked list
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted = NULL;
-	listint_t *main = *list;
-	listint_t *next;
+	listint_t *main = (*list)->next;
+	listint_t *rev = main->prev;
 
-	if (!list || !*list || !((*list)->next))
+	if (!list || !*list || !(*list)->next)
 		return;
 
-	while (main != NULL)
+	while (main)
 	{
-		next = main->next;
 
-		input_node(&sorted, main);
-
-		main = next;
-	}
-
-	*list = sorted;
-}
-
-/**
- * input_node - Func inserts a node
- * @head: Head of the sorted list
- * @node: Node inserted
- */
-void input_node(listint_t **head, listint_t *node)
-{
-	listint_t *main;
-
-	if (*head == NULL || (*head)->n >= node->n)
-	{
-		node->next = *head;
-		*head = node;
-	}
-	else
-	{
-		main = *head;
-		while (main->next != NULL && main->next->n < node->n)
+		while (rev && rev->n > main->n)
 		{
-			main = main->next;
+			if (rev->prev)
+				rev->prev->next = main;
+			if (main->next)
+				main->next->prev = rev;
+
+			rev->next = main->next;
+			main->prev = rev->prev;
+
+			main->next = rev;
+			rev->prev = main;
+
+			if (!main->prev)
+				*list = main;
+
+			print_list(*list);
+
+			rev = main->prev;
 		}
-		node->next = main->next;
-		main->next = node;
+		main = main->next;
 	}
 }
