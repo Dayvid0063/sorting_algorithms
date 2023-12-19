@@ -5,9 +5,9 @@
  * @array: Array
  * @size: Size of array
  */
-void selection_sort(int *array, size_t size)
+void selection_sort(int *array, int size)
 {
-	size_t u, v, n;
+	int u, v, n;
 	int elem;
 
 	if (array == NULL || size < 2)

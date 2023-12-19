@@ -19,9 +19,9 @@ void _swap(int *a, int *b)
  *
  * Return: void
  */
-void bubble_sort(int *array, size_t size)
+void bubble_sort(int *array, int size)
 {
-	size_t u, v, pri_v;
+	int u, v, pri_v;
 
 	v = size;
 

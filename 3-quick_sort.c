@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * _swap - function swaps two numbers
+ * _swap - func swaps two numbers
  * @a: first number
  * @b: second number
  */
@@ -23,45 +23,45 @@ void _swap(int *a, int *b)
 int lomuto_partition(int *array, size_t size, int left, int right)
 {
 	int *pivot = array + right;
-	int u, v = left - 1;
+	int v, u;
 
-	for (u = left; u <= right - 1; u++)
+	for (u = v = left; v < right; v++)
 	{
-		if (array[u] < *pivot)
+		if (array[v] < *pivot)
 		{
-			v++;
-			if (v != u)
+			if (u < v)
 			{
-				_swap(&array[v], &array[u]);
+				_swap(array + v, array + u);
 				print_array(array, size);
 			}
+			u++;
 		}
 	}
-	if ((v + 1) != right)
+	if (array[u] > *pivot)
 	{
-		_swap(&array[v + 1], &array[right]);
+		_swap(array + u, pivot);
 		print_array(array, size);
 	}
 
-	return (v + 1);
+	return (u);
 }
 
 /**
- * _sort - Function recursively sorts the array
+ * lomuto_sort - Function recursively sorts the array
  * @array: Array of int
  * @size: Size
  * @left: Starting index
  * @right: Ending index
  */
-void _sort(int *array, size_t size, int left, int right)
+void lomuto_sort(int *array, int size, int left, int right)
 {
 	int div;
 
 	if (left < right)
 	{
 		div = lomuto_partition(array, size, left, right);
-		_sort(array, size, left, div - 1);
-		_sort(array, size, div + 1, right);
+		lomuto_sort(array, size, left, div - 1);
+		lomuto_sort(array, size, div + 1, right);
 	}
 }
 
@@ -70,10 +70,7 @@ void _sort(int *array, size_t size, int left, int right)
  * @array: Array of int
  * @size: Size
  */
-void quick_sort(int *array, size_t size)
+void quick_sort(int *array, int size)
 {
-	if (array == NULL || size < 2)
-		return;
-
-	_sort(array, size, 0, size - 1);
+	lomuto_sort(array, size, 0, size - 1);
 }
