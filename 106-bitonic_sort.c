@@ -42,12 +42,13 @@ void swap_elem(int *array, int i, int j, int path)
  * bitonic_merge - Bitonic merge sequence
  * @array: Array to sort
  * @low: Starting index
- * @size: Size
+ * @size: Size length
  * @path: Sorting path
+ * @m: size of array
  */
-void bitonic_merge(int *array, int low, int size, int path)
+void bitonic_merge(int *array, int low, int size, int path, const int m)
 {
-	int u, v;
+	int u = low, v = size;
 
 	if (size > 1)
 	{
@@ -55,37 +56,47 @@ void bitonic_merge(int *array, int low, int size, int path)
 		for (u = low; u < low + v; u++)
 			swap_elem(array, u, u + v, path);
 
-		bitonic_merge(array, low, v, path);
-		bitonic_merge(array, low + v, v, path);
+		bitonic_merge(array, low, v, path, m);
+		bitonic_merge(array, low + v, v, path, m);
 	}
 }
 
 /**
- * recursive_sort - Func recursively runs bitonic sort
+ * r_sort - Func recursively runs bitonic sort
  * @array: Array
  * @low: Starting index
- * @size: Size
+ * @size: Size of length array
  * @path: Sorting direction
+ * @m: Size of all array
  */
-void recursive_sort(int *array, int low, int size, int path)
+void r_sort(int *array, int low, int size, int path, const int m)
 {
-	int v;
+	int v = size;
 
 	if (size > 1)
 	{
+		if (path == 1)
+			printf("Merging [%d/%d] (UP):\n", size, m);
+		if (path == 0)
+			printf("Merging [%d/%d] (DOWN):\n", size, m);
+		range_output(array, low, low + v - 1);
+
 		v = size / 2;
-		printf("Merging [%d/%d] (%s):\n", size, (int)size,
-				(path == 1) ? "UP" : "DOWN");
-		range_output(array, low, low + size - 1);
+		r_sort(array, low, v, 1, m);
 
-		recursive_sort(array, low, v, 1);
-		recursive_sort(array, low + v, v, 0);
+		r_sort(array, low + v, v, 0, m);
 
-		bitonic_merge(array, low, size, path);
-
-		printf("Result [%d/%d] (%s):\n", size, (int)size,
-				(path == 1) ? "UP" : "DOWN");
-		range_output(array, low, low + size - 1);
+		bitonic_merge(array, low, size, path, m);
+		if (path == 1)
+		{
+			printf("Result [%d/%d] (UP):\n", size, m);
+			range_output(array, low, low + 2 * v - 1);
+		}
+		if (path == 0)
+		{
+			printf("Result [%d/%d] (DOWN):\n", size, m);
+			range_output(array, low, low + 2 * v - 1);
+		}
 	}
 }
 
@@ -96,11 +107,11 @@ void recursive_sort(int *array, int low, int size, int path)
  */
 void bitonic_sort(int *array, size_t size)
 {
-	int top;
+	int top = 1;
+	const int m = (int)size;
 
 	if (size < 2 || !array)
 		return;
 
-	top = 1;
-	recursive_sort(array, 0, (int)size, top);
+	r_sort(array, 0, (int)size, top, m);
 }
